@@ -3,6 +3,7 @@
 #include <linux/types.h>
 #include <linux/types.h>
 #include <linux/module.h>
+#include <linux/ctype.h>
 #include <linux/ip.h>
 #include <net/ipv6.h>
 #include <net/tcp.h>
@@ -138,7 +139,7 @@ static bool dns_mt(const struct sk_buff *skb, const struct xt_match_param *par,
             DEBUG_PRINT("start qname matching.");
             while (qlen < XT_DNS_MAXSIZE && qname[qlen] != 0 &&
                    dnsinfo->qname[mlen] != 0) {        
-                if (qname[qlen++] != dnsinfo->qname[mlen++]) {
+                if (tolower(qname[qlen++]) != dnsinfo->qname[mlen++]) {
                     if (dnsinfo->rmatch) {
                         mlen = 0;
                     } else {
