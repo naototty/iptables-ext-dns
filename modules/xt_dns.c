@@ -130,7 +130,7 @@ static bool dns_mt(const struct sk_buff *skb, const struct xt_match_param *par,
             return false;
         }
         if ((dnsinfo->setflags & XT_DNS_FLAG_QTYPE) &&
-            !FWINVDNS((qtype == dnsinfo->qtype), XT_DNS_FLAG_QTYPE)) {
+            !FWINVDNS((qtype == htons(dnsinfo->qtype)), XT_DNS_FLAG_QTYPE)) {
             DEBUG_PRINT("not match qtype");
             return false;
         }
